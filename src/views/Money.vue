@@ -1,10 +1,14 @@
 <template>
-  <div>Money</div>
+  <div>Money
+    <hr>
+    <Nav/>
+  </div>
 </template>
 
-<script>
+<script lang="js">
+
   export default {
-    name: "Money"
+    name: "Money",
   }
 </script>
 

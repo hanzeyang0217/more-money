@@ -1,8 +1,9 @@
 <template>
-  <div>Statistics
-    <hr>
-    <Nav/>
-  </div>
+  <Layout>
+    Statistics
+  </Layout>
+
+
 </template>
 
 <script lang="js">

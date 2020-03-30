@@ -1,8 +1,7 @@
 <template>
-  <div>Labels
-    <hr>
-    <Nav/>
-  </div>
+  <Layout>
+    Labels
+  </Layout>
 </template>
 
 <script lang="js">

@@ -19,7 +19,6 @@
   .nav-wrapper {
     display: flex;
     flex-direction: column;
-    border: 1px green solid;
     height: 100vh;
   }
   .content {

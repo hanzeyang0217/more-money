@@ -27,6 +27,7 @@
 </script>
 
 <style lang="scss" scoped>
+  @import "~@/assets/style/helper.scss";
   .types {
     background: #c4c4c4;
     display: flex;
@@ -41,7 +42,9 @@
       justify-content: center;
       align-items: center;
       position: relative;
-
+      &.selected{
+        background-color: $color-highlight;
+      }
       &.selected::after {
         content: '';
         position: absolute;

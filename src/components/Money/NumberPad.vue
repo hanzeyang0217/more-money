@@ -81,6 +81,7 @@
       @extend %clearFix;
 
       > button {
+        cursor: pointer;
         width: 25%;
         height: 64px;
         float: left;

@@ -41,7 +41,7 @@
       }
     }
     > .item.selected{
-      color: $color-highlight;
+      background-color: $color-highlight;
     }
   }
 </style>

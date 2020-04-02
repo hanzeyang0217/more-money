@@ -27,6 +27,11 @@
         output: 0
       }
     },
+    watch: {
+      output: function () {
+        this.$emit('update:inputAmount', this.output)
+      }
+    },
     computed: {
       btOutput: function () {
         if (this.output.toString().length <= 3) {
@@ -57,7 +62,7 @@
         this.output = 0
       },
       submitEnter() {
-        //TODO
+        this.$emit('update:update')
       }
     }
   }

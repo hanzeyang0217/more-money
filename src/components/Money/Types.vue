@@ -15,6 +15,11 @@
         type: '-' // - 为支出 + 为收入
       }
     },
+    watch: {
+      type: function () {
+        this.$emit('update:selectedType', this.type)
+      }
+    },
     methods: {
       selectType(type) {
         if (type !== '-' && type !== '+') {

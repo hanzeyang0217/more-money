@@ -14,7 +14,12 @@
       return {
         value: ''
       }
-    }
+    },
+    watch: {
+      value: function () {
+        this.$emit('update:inputNotes', this.value)
+      }
+    },
   }
 </script>
 

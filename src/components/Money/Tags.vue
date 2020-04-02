@@ -21,6 +21,11 @@
         selectedTags: []
       }
     },
+    watch: {
+      selectedTags: function () {
+        this.$emit('update:selectedTags', this.selectedTags)
+      }
+    },
     methods: {
       toggle(tag) {
         if (this.selectedTags.indexOf(tag) === -1) {
@@ -30,11 +35,10 @@
         }
       },
       create() {
-        const name = window.prompt('请输入标签名')
+        const name = window.prompt('请输入标签名').trim()
         if (name === '') {
           window.alert('标签名不能为空')
         } else if (this.tags) {
-          console.log(`hi`)
           this.$emit('update:tags',
             [...this.tags, name])
         }

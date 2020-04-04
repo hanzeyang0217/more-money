@@ -15,27 +15,28 @@
 <script lang="js">
   export default {
     name: "Tags",
-    props: [`tags`],
+    props: {
+      tags: Array,
+      selectedTags: Array
+    },
     data() {
       return {
-        selectedTags: []
-      }
-    },
-    watch: {
-      selectedTags: function () {
-        this.$emit('update:selectedTags', this.selectedTags)
+        dataSelectedTags: Array.from(this.selectedTags)
+        //因为是数组 需要保证data单向传输 所以新建了一个数组
       }
     },
     methods: {
       toggle(tag) {
         if (this.selectedTags.indexOf(tag) === -1) {
-          this.selectedTags.push(tag)
+          this.dataSelectedTags.push(tag)
+          this.$emit('update:selectedTags', this.dataSelectedTags)
         } else {
-          this.selectedTags.splice(this.selectedTags.indexOf(tag), 1)
+          this.dataSelectedTags.splice(this.dataSelectedTags.indexOf(tag), 1)
+          this.$emit('update:selectedTags', this.dataSelectedTags)
         }
       },
       create() {
-        const name = window.prompt('请输入标签名').trim()
+        const name = window.prompt('请输入标签名')
         if (name === '') {
           window.alert('标签名不能为空')
         } else if (this.tags) {

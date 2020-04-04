@@ -1,12 +1,6 @@
 <template>
   <Layout>
-    {{recode.selectedType}}
-    <br>
-    {{recode.inputNotes}}
-    <br>
-    {{recode.inputAmount}}
-    <br>
-    {{recode.selectedTags}}
+    {{recode}}
     <Tags :tags.sync="tags" :selectedTags.sync="recode.selectedTags"/>
     <Notes :inputNotes.sync="recode.inputNotes"/>
     <Types :selectedType.sync="recode.selectedType"/>
@@ -34,13 +28,9 @@
         }
       }
     },
-    watch: {
-      'recode.inputAmount': function () {
-        console.log(this.recode)
-      }
-    },
     methods:{
       update:function () {
+        console.log(this.recode)
         localStorage.setItem('recode',JSON.stringify(this.recode))
       }
     }

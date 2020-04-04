@@ -2,19 +2,19 @@
   <div class="numberPad">
     <div class="output">{{btOutput}}</div>
     <div class="buttons">
-      <button @click="enterNumber(1)">1</button>
-      <button @click="enterNumber(2)">2</button>
-      <button @click="enterNumber(3)">3</button>
+      <button @click="enterNumber('1')">1</button>
+      <button @click="enterNumber('2')">2</button>
+      <button @click="enterNumber('3')">3</button>
       <button @click="deleteEnter()">删除</button>
-      <button @click="enterNumber(4)">4</button>
-      <button @click="enterNumber(5)">5</button>
-      <button @click="enterNumber(6)">6</button>
+      <button @click="enterNumber('4')">4</button>
+      <button @click="enterNumber('5')">5</button>
+      <button @click="enterNumber('6')">6</button>
       <button @click="clearEnter()">清空</button>
-      <button @click="enterNumber(7)">7</button>
-      <button @click="enterNumber(8)">8</button>
-      <button @click="enterNumber(9)">9</button>
+      <button @click="enterNumber('7')">7</button>
+      <button @click="enterNumber('8')">8</button>
+      <button @click="enterNumber('9')">9</button>
       <button @click="submitEnter()" class="ok">OK</button>
-      <button @click="enterNumber(0)" class="zero">0</button>
+      <button @click="enterNumber('0')" class="zero">0</button>
     </div>
   </div>
 </template>
@@ -22,22 +22,13 @@
 <script lang="js">
   export default {
     name: "NumberPad",
-    data() {
-      return {
-        output: 0
-      }
-    },
-    watch: {
-      output: function () {
-        this.$emit('update:inputAmount', this.output)
-      }
-    },
+    props: ['inputAmount'],
     computed: {
       btOutput: function () {
-        if (this.output.toString().length <= 3) {
-          return this.output
-        } else if (this.output.length <= 7) {
-          return Number(this.output).toLocaleString()
+        if (this.inputAmount.length <= 3) {
+          return this.inputAmount
+        } else if (this.inputAmount.length <= 7) {
+          return Number(this.inputAmount).toLocaleString()
         } else {
           return `not support rich`
         }
@@ -45,21 +36,22 @@
     },
     methods: {
       enterNumber(number) {
-        if (this.output === 0) {
-          this.output = number
-        } else {
-          this.output = this.output.toString() + number
+        let newNumber = number
+        if (this.inputAmount !== '0') {
+          newNumber = this.inputAmount + number
         }
+        this.$emit('update:inputAmount', newNumber)
+
       },
       deleteEnter() {
-        if (this.output.toString().length === 1) {
-          this.output = 0
-        } else {
-          this.output = this.output.toString().slice(0, -1)
+        let newNumber = '0'
+        if (this.inputAmount.length > 1) {
+          newNumber = this.inputAmount.slice(0, -1)
         }
+        this.$emit('update:inputAmount', newNumber)
       },
       clearEnter() {
-        this.output = 0
+        this.$emit('update:inputAmount', '0')
       },
       submitEnter() {
         this.$emit('update:update')

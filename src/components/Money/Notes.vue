@@ -2,7 +2,7 @@
   <div>
     <label class="notes">
       <span class="name">备注</span>
-      <input type="text" v-model="value" placeholder="在这里输入备注">
+      <input type="text" :value="inputNotes" @input="input($event.target.value)" placeholder="在这里输入备注">
     </label>
   </div>
 </template>
@@ -10,16 +10,12 @@
 <script lang="js">
   export default {
     name: "Notes",
-    data() {
-      return {
-        value: ''
+    props:['inputNotes'],
+    methods:{
+      input(value){
+        this.$emit('update:inputNotes', value)
       }
-    },
-    watch: {
-      value: function () {
-        this.$emit('update:inputNotes', this.value)
-      }
-    },
+    }
   }
 </script>
 

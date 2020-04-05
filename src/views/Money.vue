@@ -1,10 +1,10 @@
 <template>
   <Layout>
-    {{recode}}
+    {{recodeList}}
     <Tags :tags.sync="tags" :selectedTags.sync="recode.selectedTags"/>
     <Notes :inputNotes.sync="recode.inputNotes"/>
     <Types :selectedType.sync="recode.selectedType"/>
-    <NumberPad :inputAmount.sync="recode.inputAmount" @update:update="update"/>
+    <NumberPad :inputAmount.sync="recode.inputAmount" @update:addRecode="addRecode"/>
   </Layout>
 </template>
 
@@ -13,6 +13,21 @@
   import Types from '@/components/Money/Types'
   import Notes from '@/components/Money/Notes'
   import Tags from '@/components/Money/Tags'
+
+  /**
+   * 数据迁移 数据库更新
+   * 等会儿封装
+   */
+  const version = window.localStorage.getItem('version') || '0'
+  const recordList = JSON.parse(window.localStorage.getItem('recodeList'))
+  if (version === '0.0.0'){
+    //增加data
+    recordList.forEach(recode=>{
+      recode.createdAt=new Date(2020,1,1)
+    })
+    window.localStorage.setItem('recodeList',recordList)
+  }
+  window.localStorage.setItem('version','0.0.1')
 
   export default {
     name: "Money",
@@ -24,14 +39,23 @@
           selectedTags: [],
           inputNotes: '',
           selectedType: '-',
-          inputAmount: '0'
-        }
+          inputAmount: '0',
+          saveAt: new Date()
+        },
+        recodeList: []
       }
     },
-    methods:{
-      update:function () {
-        console.log(this.recode)
-        localStorage.setItem('recode',JSON.stringify(this.recode))
+    watch: {
+      recodeList: function () {
+        console.log(this.recodeList)
+        localStorage.setItem('recodeList', JSON.stringify(this.recodeList))
+
+      }
+    },
+    methods: {
+      addRecode: function () {
+        const cloneRecode = JSON.parse(JSON.stringify(this.recode))
+        this.recodeList.push(cloneRecode)
       }
     }
   }

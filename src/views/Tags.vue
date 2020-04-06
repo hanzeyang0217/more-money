@@ -1,12 +1,12 @@
 <template>
   <Layout>
-    Labels
+    Tags
   </Layout>
 </template>
 
 <script lang="js">
   export default {
-    name: "Labels",
+    name: "Tags",
   }
 </script>
 

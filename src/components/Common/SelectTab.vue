@@ -14,12 +14,14 @@
     name: "SelectTab",
     props: {
       tabData: Array,
-      selectedKey: String
+      selectedKey: String,
+      classPrefix:String
     },
     methods: {
       liClass(item) {
         return {
-          selected: item.key === this.selectedKey
+          selected: item.key === this.selectedKey,
+          [`${this.classPrefix}-item`]:this.classPrefix
         }
       },
       selectTab(key) {

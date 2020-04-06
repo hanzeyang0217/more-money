@@ -1,6 +1,6 @@
 <template>
   <Layout>
-    <SelectTab class="tabType" :tabData="tabTypeData" :selectedKey.sync="selectedType"/>
+    <SelectTab class="tabType" :classPrefix="classPrefix" :tabData="tabTypeData" :selectedKey.sync="selectedType"/>
     <SelectTab :tabData="tabData" :selectedKey.sync="selectedTab"/>
 
     <ul>
@@ -44,7 +44,8 @@
         selectedType: '-',
         selectedTab: 'day',
         tabData: tabData,
-        tabTypeData:tabTypeData
+        tabTypeData:tabTypeData,
+        classPrefix:'tabTypePrefix'
       }
     }
   }
@@ -52,7 +53,7 @@
 
 <style lang="scss" scoped>
   ::v-deep .tabType{
-    > li {
+    > .tabTypePrefix-item {
       height: 64px;
       font-size: 24px;
     }

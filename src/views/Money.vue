@@ -2,7 +2,7 @@
   <Layout>
     <Tags :tags="tags" @update:createTag="createTag" :selectedTag.sync="record.selectedTag"/>
     <Notes :inputNotes.sync="record.inputNotes"/>
-    <SelectTab class="tabType" :tabData="tabTypeData" :selectedKey.sync="record.selectedType"/>
+    <SelectTab class="tabType" :tabData="tabTypeData" :selectedKey.sync="record.selectedType" :classPrefix="classPrefix"/>
     <NumberPad :inputAmount.sync="record.inputAmount" @update:addRecord="addRecord"/>
   </Layout>
 </template>
@@ -47,7 +47,8 @@
           saveAt: new Date()
         },
         recordList: [],
-        tabTypeData:tabTypeData
+        tabTypeData:tabTypeData,
+        classPrefix:'tabTypePrefix'
       }
     },
     methods: {
@@ -67,7 +68,7 @@
 
 <style lang="scss" scoped>
   ::v-deep .tabType{
-    > li {
+    > .tabTypePrefix-item {
       height: 64px;
       font-size: 24px;
     }

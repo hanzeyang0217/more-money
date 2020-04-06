@@ -1,7 +1,7 @@
 <template>
   <Layout>
     {{recodeList}}
-    <Tags :tags="tags" @update:addTag="addTag" :selectedTags.sync="recode.selectedTags"/>
+    <Tags :tags="tags" @update:createTag="createTag" :selectedTags.sync="recode.selectedTags"/>
     <Notes :inputNotes.sync="recode.inputNotes"/>
     <Types :selectedType.sync="recode.selectedType"/>
     <NumberPad :inputAmount.sync="recode.inputAmount" @update:addRecode="addRecode"/>
@@ -32,13 +32,12 @@
   window.localStorage.setItem('version', '0.0.1')
 
 
-
   export default {
     name: "Money",
     components: {Tags, Notes, Types, NumberPad},
     data() {
       return {
-        tags: tagListModel.fetch().map(item => item.name),
+        tags: tagListModel.fetch(),
         // tags: window.tagList,
         recode: {
           selectedTags: [],
@@ -52,9 +51,7 @@
     },
     watch: {
       recodeList: function () {
-        console.log(this.recodeList)
         localStorage.setItem('recodeList', JSON.stringify(this.recodeList))
-
       }
     },
     methods: {
@@ -62,8 +59,8 @@
         const cloneRecode = JSON.parse(JSON.stringify(this.recode))
         this.recodeList.push(cloneRecode)
       },
-      addTag(tagName) {
-        this.tags = tagListModel.addTag(tagName).map(item => item.name)
+      createTag() {
+        this.tags = tagListModel.createTag()
       }
     }
   }

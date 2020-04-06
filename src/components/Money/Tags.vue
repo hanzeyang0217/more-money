@@ -1,12 +1,12 @@
 <template>
   <div class="tags">
     <div class="new">
-      <button @click="create()">新增标签</button>
+      <button @click="createTag()">新增标签</button>
     </div>
     <ul class="current">
-      <li v-for="tag in tags" :key="tag" @click="toggle(tag)"
+      <li v-for="tag in tags" :key="tag.id" @click="toggle(tag)"
           :class="selectedTags.indexOf(tag) !== -1 && 'selected'">
-        {{tag}}
+        {{tag.name}}
       </li>
     </ul>
   </div>
@@ -35,14 +35,8 @@
           this.$emit('update:selectedTags', this.dataSelectedTags)
         }
       },
-      create() {
-        const name = window.prompt('请输入标签名')
-        if (name === '') {
-          window.alert('标签名不能为空')
-        } else if (this.tags) {
-          this.$emit('update:addTag',
-            name)
-        }
+      createTag() {
+          this.$emit('update:createTag')
       }
     }
   }

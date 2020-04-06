@@ -4,8 +4,8 @@
       <button @click="createTag()">新增标签</button>
     </div>
     <ul class="current">
-      <li v-for="tag in tags" :key="tag.id" @click="toggle(tag)"
-          :class="selectedTags.indexOf(tag) !== -1 && 'selected'">
+      <li v-for="tag in tags" :key="tag.id" @click="selectTag(tag)"
+          :class="selectedTag===tag && 'selected'">
         {{tag.name}}
       </li>
     </ul>
@@ -17,27 +17,15 @@
     name: "Tags",
     props: {
       tags: Array,
-      selectedTags: Array
-    },
-    data() {
-      return {
-        dataSelectedTags: Array.from(this.selectedTags)
-        //因为是数组 需要保证data单向传输 所以新建了一个数组
-      }
+      selectedTag: Object
     },
     methods: {
-      toggle(tag) {
-        if (this.selectedTags.indexOf(tag) === -1) {
-          this.dataSelectedTags.push(tag)
-          this.$emit('update:selectedTags', this.dataSelectedTags)
-        } else {
-          this.dataSelectedTags.splice(this.dataSelectedTags.indexOf(tag), 1)
-          this.$emit('update:selectedTags', this.dataSelectedTags)
-        }
-      },
-      createTag() {
-          this.$emit('update:createTag')
+      selectTag(tag) {
+        this.$emit('update:selectedTag', tag)
       }
+    },
+    createTag() {
+      this.$emit('update:createTag')
     }
   }
 </script>

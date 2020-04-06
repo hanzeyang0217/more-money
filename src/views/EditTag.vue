@@ -5,7 +5,6 @@
         <Icon class="backIcon" name="back"/>
       </router-link>
       <span class="title">编辑标签</span>
-      {{tag}}
       <span class="rightIcon"></span>
     </div>
     <div class="form-wrapper">

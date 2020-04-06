@@ -1,7 +1,7 @@
 <template>
   <Layout>
-    <SelectTab class="tabType" :tabData="tabTypeData"/>
-    <SelectTab :tabData="tabData"/>
+    <SelectTab class="tabType" :tabData="tabTypeData" :selectedKey.sync="selectedType"/>
+    <SelectTab :tabData="tabData" :selectedKey.sync="selectedTab"/>
 
     <ul>
       <li class="record" v-for="record in recordList" :key="record.id">
@@ -32,6 +32,8 @@
 <script lang="js">
   import recordListModel from '@/Models/recordListModel'
   import SelectTab from '@/components/Common/SelectTab'
+  import tabData from '@/constants/tabData'
+  import tabTypeData from '@/constants/tabTypeData'
 
   export default {
     name: "Statistics",
@@ -41,32 +43,8 @@
         recordList: recordListModel.fetch(),
         selectedType: '-',
         selectedTab: 'day',
-        tabData: [
-          {
-            key: 'day',
-            name: '日',
-            defaultSelected: true
-          },
-          {
-            key: 'month',
-            name: '月'
-          },
-          {
-            key: 'year',
-            name: '年'
-          },
-        ],
-        tabTypeData: [
-          {
-            key: '-',
-            name: '支出',
-            defaultSelected: true
-          },
-          {
-            key: '+',
-            name: '收入'
-          }
-        ]
+        tabData: tabData,
+        tabTypeData:tabTypeData
       }
     }
   }

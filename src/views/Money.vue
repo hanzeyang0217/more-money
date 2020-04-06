@@ -14,6 +14,7 @@
   import tagListModel from '@/Models/tagListModel'
   import recordListModel from '@/Models/recordListModel'
   import SelectTab from '@/components/Common/SelectTab'
+  import tabTypeData from '@/constants/tabTypeData'
 
   /**
    * 数据迁移 数据库更新
@@ -46,17 +47,7 @@
           saveAt: new Date()
         },
         recordList: [],
-        tabTypeData: [
-          {
-            key: '-',
-            name: '支出',
-            defaultSelected: true
-          },
-          {
-            key: '+',
-            name: '收入',
-          }
-        ]
+        tabTypeData:tabTypeData
       }
     },
     methods: {

@@ -22,10 +22,11 @@
     methods: {
       selectTag(tag) {
         this.$emit('update:selectedTag', tag)
+      },
+
+      createTag() {
+        this.$emit('update:createTag')
       }
-    },
-    createTag() {
-      this.$emit('update:createTag')
     }
   }
 </script>

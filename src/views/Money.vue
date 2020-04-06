@@ -1,20 +1,19 @@
 <template>
   <Layout>
-    {{recordList}}
     <Tags :tags="tags" @update:createTag="createTag" :selectedTag.sync="record.selectedTag"/>
     <Notes :inputNotes.sync="record.inputNotes"/>
-    <Types :selectedType.sync="record.selectedType"/>
+    <SelectTab class="tabType" :tabData="tabTypeData" :selectedKey.sync="record.selectedType"/>
     <NumberPad :inputAmount.sync="record.inputAmount" @update:addRecord="addRecord"/>
   </Layout>
 </template>
 
 <script lang="js">
   import NumberPad from '@/components/Money/NumberPad'
-  import Types from '@/components/Money/Types'
   import Notes from '@/components/Money/Notes'
   import Tags from '@/components/Money/Tags'
   import tagListModel from '@/Models/tagListModel'
   import recordListModel from '@/Models/recordListModel'
+  import SelectTab from '@/components/Common/SelectTab'
 
   /**
    * 数据迁移 数据库更新
@@ -35,7 +34,7 @@
 
   export default {
     name: "Money",
-    components: {Tags, Notes, Types, NumberPad},
+    components: {SelectTab, Tags, Notes, NumberPad},
     data() {
       return {
         tags: tagListModel.fetch(),
@@ -46,13 +45,27 @@
           inputAmount: '0',
           saveAt: new Date()
         },
-        recordList: []
+        recordList: [],
+        tabTypeData: [
+          {
+            key: '-',
+            name: '支出',
+          },
+          {
+            key: '+',
+            name: '收入',
+            defaultSelected: true
+          }
+        ]
       }
     },
     methods: {
       addRecord: function () {
-        const cloneRecord = JSON.parse(JSON.stringify(this.record))
-        this.recordList = recordListModel.addRecord(cloneRecord)
+        if (this.record.inputAmount !== 0) {
+          const cloneRecord = JSON.parse(JSON.stringify(this.record))
+          this.recordList = recordListModel.addRecord(cloneRecord)
+
+        }
       },
       createTag() {
         this.tags = tagListModel.createTag()
@@ -62,4 +75,10 @@
 </script>
 
 <style lang="scss" scoped>
+  ::v-deep .tabType{
+    > li {
+      height: 64px;
+      font-size: 24px;
+    }
+  }
 </style>

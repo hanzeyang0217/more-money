@@ -1,6 +1,6 @@
-function getMaxID(tagList) {
+function getMaxID(array) {
   let maxID = 0
-  Array.from(tagList).forEach(item => {
+  Array.from(array).forEach(item => {
       if (item.id > maxID)
         maxID = item.id
     }
@@ -8,8 +8,8 @@ function getMaxID(tagList) {
   return maxID
 }
 
-function makeID(tagList) {
-  return getMaxID(tagList) + 1
+function makeID(array) {
+  return getMaxID(array) + 1
 }
 
 export default makeID

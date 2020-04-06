@@ -6,7 +6,7 @@ const tagListModelBase = {
     window.localStorage.setItem(this.key, JSON.stringify(tagList))
   },
   fetch() {
-    const nowTagList = JSON.parse(window.localStorage.getItem(tagListModelBase.key)) || []
+    const nowTagList = JSON.parse(window.localStorage.getItem(this.key)) || []
     return Array.from(nowTagList)
   },
   makeTag(tagName, tagList) {

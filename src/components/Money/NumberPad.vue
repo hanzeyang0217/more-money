@@ -54,7 +54,7 @@
         this.$emit('update:inputAmount', '0')
       },
       submitEnter() {
-        this.$emit('update:addRecode')
+        this.$emit('update:addRecord')
       }
     }
   }

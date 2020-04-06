@@ -1,10 +1,10 @@
 <template>
   <Layout>
-    {{recodeList}}
-    <Tags :tags="tags" @update:createTag="createTag" :selectedTag.sync="recode.selectedTag"/>
-    <Notes :inputNotes.sync="recode.inputNotes"/>
-    <Types :selectedType.sync="recode.selectedType"/>
-    <NumberPad :inputAmount.sync="recode.inputAmount" @update:addRecode="addRecode"/>
+    {{recordList}}
+    <Tags :tags="tags" @update:createTag="createTag" :selectedTag.sync="record.selectedTag"/>
+    <Notes :inputNotes.sync="record.inputNotes"/>
+    <Types :selectedType.sync="record.selectedType"/>
+    <NumberPad :inputAmount.sync="record.inputAmount" @update:addRecord="addRecord"/>
   </Layout>
 </template>
 
@@ -14,6 +14,7 @@
   import Notes from '@/components/Money/Notes'
   import Tags from '@/components/Money/Tags'
   import tagListModel from '@/Models/tagListModel'
+  import recordListModel from '@/Models/recordListModel'
 
   /**
    * 数据迁移 数据库更新
@@ -21,13 +22,13 @@
    * TODO
    */
   const version = window.localStorage.getItem('version') || '0'
-  const recordList = JSON.parse(window.localStorage.getItem('recodeList'))
+  const recordList = JSON.parse(window.localStorage.getItem('recordList'))
   if (version === '0.0.0') {
     //增加data
-    recordList.forEach(recode => {
-      recode.createdAt = new Date(2020, 1, 1)
+    recordList.forEach(record => {
+      record.createdAt = new Date(2020, 1, 1)
     })
-    window.localStorage.setItem('recodeList', recordList)
+    window.localStorage.setItem('recordList', recordList)
   }
   window.localStorage.setItem('version', '0.0.1')
 
@@ -38,25 +39,20 @@
     data() {
       return {
         tags: tagListModel.fetch(),
-        recode: {
+        record: {
           selectedTag: {},
           inputNotes: '',
           selectedType: '-',
           inputAmount: '0',
           saveAt: new Date()
         },
-        recodeList: []
-      }
-    },
-    watch: {
-      recodeList: function () {
-        localStorage.setItem('recodeList', JSON.stringify(this.recodeList))
+        recordList: []
       }
     },
     methods: {
-      addRecode: function () {
-        const cloneRecode = JSON.parse(JSON.stringify(this.recode))
-        this.recodeList.push(cloneRecode)
+      addRecord: function () {
+        const cloneRecord = JSON.parse(JSON.stringify(this.record))
+        this.recordList = recordListModel.addRecord(cloneRecord)
       },
       createTag() {
         this.tags = tagListModel.createTag()

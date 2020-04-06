@@ -1,9 +1,13 @@
 import makeID from '@/lib/IDMaker'
 
 const tagListModelBase = {
-  key : 'tagList',
+  key: 'tagList',
   setData(tagList) {
     window.localStorage.setItem(this.key, JSON.stringify(tagList))
+  },
+  fetch() {
+    const nowTagList = JSON.parse(window.localStorage.getItem(tagListModelBase.key)) || []
+    return Array.from(nowTagList)
   },
   makeTag(tagName, tagList) {
     return {
@@ -21,7 +25,11 @@ const tagListModelBase = {
     } else {
       return name
     }
-    return  'fail'
+    return 'fail'
+  },
+  findTag(id) {
+    const tagList = this.fetch()
+    return tagList.filter(item => item.id === id)[0]
   },
   addTag(tagName) {
     const tagList = this.fetch()
@@ -30,26 +38,39 @@ const tagListModelBase = {
     this.setData(tagList)
     return tagList
   },
-  fetch() {
-    const nowTagList = JSON.parse(window.localStorage.getItem(tagListModelBase.key)) || []
-    return Array.from(nowTagList)
+  update(id, tagName) {
+    const tagList = this.fetch()
+    const tag = tagList.filter(item => item.id === id)[0]
+    tag.name = tagName
+    this.setData(tagList)
+    return tag
+  },
+  deleteTag(id) {
+    const tagList = this.fetch()
+    const tag = tagList.filter(item => item.id === id)[0]
+    tagList.splice(tagList.indexOf(tag), 1)
+    this.setData(tagList)
+    return tagList
   }
 }
 
 const tagListModel = {
   createTag() {
     const result = tagListModelBase.inputTag()
-    if (result !== 'fail'){
-      return  tagListModelBase.addTag(result)
-    }else{
+    if (result !== 'fail') {
+      return tagListModelBase.addTag(result)
+    } else {
       return this.fetch()
     }
   },
   update(id, tagName) {
-    //TODO
+    return tagListModelBase.update(id, tagName)
   },
   deleteTag(id) {
-    //TODO
+    return tagListModelBase.deleteTag(id)
+  },
+  findTag(id) {
+    return tagListModelBase.findTag(id)
   },
   fetch() {
     return tagListModelBase.fetch()

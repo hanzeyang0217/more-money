@@ -50,11 +50,11 @@
           {
             key: '-',
             name: '支出',
+            defaultSelected: true
           },
           {
             key: '+',
             name: '收入',
-            defaultSelected: true
           }
         ]
       }

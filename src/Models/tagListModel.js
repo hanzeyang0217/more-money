@@ -1,43 +1,9 @@
-/**
- * data 大概是这个样子
- *[
- *  {
- *   id: 1,
- *   name: '711'
- *  },
- *  {
- *   id: 2,
- *   name: '全家'
- *  },
- *  {
- *   id: 3,
- *   name: '罗森'
- *  },
- *]
- */
+import makeID from '@/lib/IDMaker'
+
 const key = 'tagList'
 
 function setData(tagList) {
   window.localStorage.setItem(key, JSON.stringify(tagList))
-}
-
-/**
- * id 有关的到时候也封装
- * TODO
- */
-
-function getMaxID(tagList) {
-  let maxID = 0
-  Array.from(tagList).forEach(item => {
-      if (item.id > maxID)
-        maxID = item.id
-    }
-  )
-  return maxID
-}
-
-function makeID(tagList) {
-  return getMaxID(tagList) + 1
 }
 
 function createTag(tagName, tagList) {

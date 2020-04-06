@@ -40,8 +40,8 @@
         if (name === '') {
           window.alert('标签名不能为空')
         } else if (this.tags) {
-          this.$emit('update:tags',
-            [...this.tags, name])
+          this.$emit('update:addTag',
+            name)
         }
       }
     }

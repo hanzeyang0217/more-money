@@ -106,6 +106,10 @@
             })
           }
         }))
+        //排序 从近到远
+        newRecordList.sort((a, b) => {
+          return a.groupID > b.groupID ? -1 : 1
+        })
         return newRecordList
       }
     }
